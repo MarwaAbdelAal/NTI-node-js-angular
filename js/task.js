@@ -21,7 +21,7 @@ const addFun = (e)=>{
         if(head.default == null) data[head.key] = addTask.elements[head.key].value
         else data[head.key] = head.default
     })
-    
+
     allTasks.push(data)
     writeToStorage(allTasks)
     addTask.reset()
@@ -80,21 +80,30 @@ const editTask = (i, allTasks) => {
 
 const editSingleTask = (task, i, allTasks) => {
     console.log(task)
-    // console.log(editWrap.elements)
     for (var key in task) {
         for (let i = 0; i < editWrap.elements.length; i++) {
+            if (editWrap.elements[i].name == key) editWrap.elements[i].value = task[key]
+        }
+    }
+}
+
+const saveEdit = (e)=>{
+    e.preventDefault()
+    const allTasks = readFromLocalStorage()
+    const task = readFromLocalStorage("singleTask","object")
+    const index = readFromLocalStorage("singleIndex", "string")
+    for(key in task){
+        for (let i = 0; i < editWrap.elements.length; i++){
             if (editWrap.elements[i].name == key) {
-                editWrap.elements[i].value = task[key]
+                task[key] = editWrap.elements[i].value
             }
         }
     }
-
-    // allTasks.push(task)
-    // writeToStorage(allTasks)
-    // window.location.href = "index.html"
+    allTasks.splice(index, 1, task)
+    writeToStorage(allTasks)
+    writeToStorage(task, "singleTask")
+    window.location.href = "index.html"
 }
-
-// if(editWrap) editWrap.addEventListener("submit", editSingleTask)
 
 const drawSingleTask = (task, i, allTasks, container) => {
     
@@ -140,4 +149,5 @@ if(editWrap){
     const task = readFromLocalStorage("singleTask", "object")
     const i = readFromLocalStorage("singleIndex", "string")
     editSingleTask(task, i, allTasks)
+    editWrap.addEventListener("submit", saveEdit)
 }
