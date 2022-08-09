@@ -1,6 +1,7 @@
 const addTask = document.querySelector("#addTask")
 const taskWrap = document.querySelector("#taskWrap")
 const singleWrap = document.querySelector("#singleWrap")
+const editWrap = document.querySelector("#editWrap")
 
 const taskHeads = [
     {key: "id", default:Date.now()},
@@ -11,7 +12,7 @@ const taskHeads = [
 ]
 
 const addFun = (e)=>{
-    e.preventDefault()
+    e.preventDefault() // prevent auto-reload & sending attribute values in url
     const allTasks = readFromLocalStorage()
     const data = {}
     
@@ -65,22 +66,40 @@ const changeStatus = (i, allTasks) => {
     drawData(allTasks)
 }
 
-const singleTask = (i, allTasks) => {
+const showTask = (i, allTasks) => {
     writeToStorage(allTasks[i], "singleTask")
     writeToStorage(i, "singleIndex")
     window.location.href = "single.html"
 }
 
 const editTask = (i, allTasks) => {
+    writeToStorage(allTasks[i], "singleTask")
+    writeToStorage(i, "singleIndex")
     window.location.href = "edit.html"
-    writeToStorage(allTasks)
-    drawData(allTasks)
 }
+
+const editSingleTask = (task, i, allTasks) => {
+    console.log(task)
+    // console.log(editWrap.elements)
+    for (var key in task) {
+        for (let i = 0; i < editWrap.elements.length; i++) {
+            if (editWrap.elements[i].name == key) {
+                editWrap.elements[i].value = task[key]
+            }
+        }
+    }
+
+    // allTasks.push(task)
+    // writeToStorage(allTasks)
+    // window.location.href = "index.html"
+}
+
+// if(editWrap) editWrap.addEventListener("submit", editSingleTask)
 
 const drawSingleTask = (task, i, allTasks, container) => {
     
     const d1 = createMyOwnElement("div", container, "col-4")
-    let c
+    let c;
     if(task.status) c = "p-2 border border-primary m-2 bg-primary"
     else c = "p-2 border border-primary m-2 bg-danger"
 
@@ -95,7 +114,7 @@ const drawSingleTask = (task, i, allTasks, container) => {
 
     delBtn.addEventListener("click", () => deleteTask(i, allTasks))
     editBtn.addEventListener("click", () => editTask(i, allTasks))
-    showBtn.addEventListener("click", () => singleTask(i, allTasks))
+    showBtn.addEventListener("click", () => showTask(i, allTasks))
     statusBtn.addEventListener("click", () => changeStatus(i, allTasks))
 }
 
@@ -114,4 +133,11 @@ if(singleWrap){
     const singleTask = readFromLocalStorage("singleTask", "object")
     const i = readFromLocalStorage("singleIndex", "string")
     drawSingleTask(singleTask, i, allTasks, singleWrap)
+}
+
+if(editWrap){
+    const allTasks = readFromLocalStorage()
+    const task = readFromLocalStorage("singleTask", "object")
+    const i = readFromLocalStorage("singleIndex", "string")
+    editSingleTask(task, i, allTasks)
 }
