@@ -18,7 +18,26 @@ const showSingle = (title) => {
     const allTasks = dealWithJson.readFromJson()
     const task = allTasks.find(task => task.title == title)
     if(!task) return console.log("Not found")
-    console.log(task)
+    console.log(`"title": ${task.title}, "content": ${task.content}, "dueDate": ${task.dueDate}, "status": ${task.status},`);
+}
+const deleteTask = (title) => {
+    const allTasks = dealWithJson.readFromJson()
+    const tasks = allTasks.filter((allTasks)=> {return allTasks.title !== title})
+    dealWithJson.writeToJson(tasks)
+}
+const editTask = (argv) => {
+    const allTasks = dealWithJson.readFromJson()
+    const task = allTasks.find(task => task.title == argv.title)
+    if(!task) return console.log("Not found")
+    heads.forEach(head => task[head] = argv[head])
+    dealWithJson.writeToJson(allTasks)
+}
+const changeStatus = (title) => {
+    const allTasks = dealWithJson.readFromJson()
+    const task = allTasks.find(task => task.title == title)
+    if(!task) return console.log("Not found")
+    task.status = !task.status
+    dealWithJson.writeToJson(allTasks)
 }
 
-module.exports = {add, showAll, showSingle}
+module.exports = {add, showAll, showSingle, deleteTask, editTask, changeStatus}

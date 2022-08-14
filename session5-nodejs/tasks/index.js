@@ -39,15 +39,46 @@ yargs.command({
 })
 yargs.command({
     command: "edit",
-    handler: () => console.log("edit")
+    builder: {
+        title:{
+            type: "Number",
+            demandOption: true
+        },
+        content:{
+            type: "String",
+            default: "No content"
+        },
+        dueDate:{
+            type: "Number",
+            demandOption: true
+        },
+        status:{
+            type: "boolean",
+            default: "false"
+        }
+    },
+    handler: (argv) => Task.editTask(argv)
+
 })
 yargs.command({
     command: "delete",
-    handler: () => console.log("delete")
+    builder:{
+        title:{
+            type: "Number",
+            demandOption: true
+        }
+    },
+    handler: (argv) => Task.deleteTask(argv.title)
 })
 yargs.command({
     command: "status",
-    handler: () => console.log("status")
+    builder:{
+        title:{
+            type: "Number",
+            demandOption: true
+        }
+    },
+    handler: (argv) => Task.changeStatus(argv.title)
 })
 
 yargs.argv
