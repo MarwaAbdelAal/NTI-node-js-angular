@@ -1,6 +1,6 @@
-# CRUD operations on tasks
+## CRUD operations on tasks
 
-## install node modules (make sure you are in `tasks` directory)
+### install node modules (make sure you are in `tasks` directory)
 
 ```
 npm init --y
