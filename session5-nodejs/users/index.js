@@ -44,13 +44,16 @@ yargs.command({
             demandOption: true
         },
         name:{
-            type: "String"
+            type: "String",
+            demandOption: true
         },
         age:{
-            type: "Number"
+            type: "Number",
+            demandOption: true
         },
         details:{
-            title: "String"
+            title: "String",
+            default: "No details yet"
         }
     },
     handler: (argv) => User.editUser(argv)
