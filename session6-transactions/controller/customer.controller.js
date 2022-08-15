@@ -1,6 +1,7 @@
 const deal = require("./deal.controller")
-const heads = ["accNum","name", "userName","balance","remaining","transactions"]
+const heads = ["accNum", "name", "userName", "balance", "remaining", "transactions"]
 const transHeads = ["transNum", "tType", "tValue"]
+const allowedHeads = ["name", "userName"]
 
 class Customer {
     static addCustomer= (data)=>{
@@ -22,23 +23,23 @@ class Customer {
     static allCustomers=()=>{
         console.log(deal.readFromJson())
     }    
-    static editCustomer=(data)=>{
+    static editCustomer=(argv)=>{
         const customer = {}
-        heads.forEach(head => {
-            if (data[head] && head != "accNum") customer[head] = data[head]
-        })
+        allowedHeads.forEach(head => customer[head] = argv[head]) // edit name, userName only
+        console.log(customer);
         const allCustomers = deal.readFromJson()
-        const index = deal.getIndex(allCustomers, data.accNum, "accNum")
+        const index = deal.getIndex(allCustomers, argv.id, "accNum")
         if (index == -1) return console.log("not found")
 
+        // verify username is unique
         const hasUserName = deal.getIndex(allCustomers, customer.userName, "userName")
         if (hasUserName!=-1 && hasUserName!=index){
             return console.log("user used before")
         }
-
         for (const property in customer){
             allCustomers[index][property] = customer[property]
         }
+        console.log(allCustomers[index]);
         deal.writeToJSON(allCustomers)
     }
     static addTransaction=(argv)=>{

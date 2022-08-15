@@ -16,16 +16,16 @@ yargs.command({
 yargs.command({
     command:"edit",
     builder:{
-        accNum:{demandOption:true}
+        id:{demandOption:true}
     },
     handler:(argv)=>Customer.editCustomer(argv)
 })
 yargs.command({
     command:"del",
     builder:{
-        accNum:{demandOption:true}
+        id:{demandOption:true}
     },
-    handler:(argv)=>Customer.delCustomer(argv.accNum)
+    handler:(argv)=>Customer.delCustomer(argv.id)
 })
 yargs.command({
     command:"showAll",
@@ -34,9 +34,9 @@ yargs.command({
 yargs.command({
     command:"showSingle",
     builder:{
-        accNum:{demandOption:true}
+        id:{demandOption:true}
     },
-    handler:(argv)=>Customer.showCustomer(argv.accNum)
+    handler:(argv)=>Customer.showCustomer(argv.id)
 })
 yargs.command({
     command:"addTransaction",
