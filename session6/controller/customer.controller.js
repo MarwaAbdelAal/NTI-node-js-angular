@@ -1,35 +1,82 @@
-const dealWithJson = require("./dealWithJson")
-heads = ["accNum", "username", "name", "balance", "remaining", "transactions"]
-// accNum, userName, name, intial balance, remaining balance, transactions:[]
+const deal = require("./deal.controller")
+const heads = ["accNum","name", "userName","balance","remaining","transactions"]
+const transHeads = ["transNum", "tType", "tValue"]
 
 class Customer {
-    static addCustomer = (data) => {
-        let customer = {}
+    static addCustomer= (data)=>{
+        const customer = {}
         heads.forEach(head => customer[head] = data[head])
         customer.remaining = customer.balance
-        const allCustomers = dealWithJson.readFromJson()
-        const index = dealWithJson.getIndex(allCustomers, customer.username, "username")
-        if (index != -1) return console.log("username used before")
+        const allCustomers = deal.readFromJson()
+        const index = deal.getIndex(allCustomers, customer.userName, "userName")
+        if(index!=-1) return console.log("userName used before")
         allCustomers.push(customer)
-        dealWithJson.writeToJson(allCustomers)
+        deal.writeToJSON(allCustomers)
     }
-    static addTransaction = (data) => {
+    static showCustomer=(data)=>{
+        const allUsers = deal.readFromJson()
+        const index = deal.getIndex(allUsers, data, "accNum")
+        if(index==-1) return console.log("user not found")
+        console.log(allUsers[index])
     }
-    static delCustomer = (data) => {
-    }
-    static showCustomer = (data) => {
-        const allCustomers = dealWithJson.readFromJson()
-        const index = dealWithJson.getIndex(allCustomers, data, "accNum")
-        if (index != -1) return console.log("username used before")
-        console.log(allCustomers[index])
-    }
-    static allCustomers = () => {
-        const allCustomers = dealWithJson.readFromJson()
-        allCustomers.forEach(customer => {
-            console.log(`"accNum": ${customer.accNum} "username": ${customer.username}, "name": ${customer.name}, "balance": ${customer.balance}, "remaining": ${customer.remaining}, "transactions": ${customer.transactions},`)
+    static allCustomers=()=>{
+        console.log(deal.readFromJson())
+    }    
+    static editCustomer=(data)=>{
+        const customer = {}
+        heads.forEach(head => {
+            if (data[head] && head != "accNum") customer[head] = data[head]
         })
+        const allCustomers = deal.readFromJson()
+        const index = deal.getIndex(allCustomers, data.accNum, "accNum")
+        if (index == -1) return console.log("not found")
+
+        const hasUserName = deal.getIndex(allCustomers, customer.userName, "userName")
+        if (hasUserName!=-1 && hasUserName!=index){
+            return console.log("user used before")
+        }
+
+        for (const property in customer){
+            allCustomers[index][property] = customer[property]
+        }
+        deal.writeToJSON(allCustomers)
     }
-    static editCustomer = (data) => {
+    static addTransaction=(argv)=>{
+        const trans = {}
+        const allCustomers = deal.readFromJson()
+        const index = deal.getIndex(allCustomers, argv.accNum, "accNum")
+        if (index==-1) return console.log("user not found")
+
+        transHeads.forEach(head => trans[head] = argv[head])
+
+        if (argv.tType == "withdraw") allCustomers[index].remaining = allCustomers[index].remaining - argv.tValue
+        else allCustomers[index].remaining = allCustomers[index].remaining + argv.tValue
+    
+        allCustomers[index].transactions.push(trans)
+        
+        console.log(allCustomers[index])
+        deal.writeToJSON(allCustomers)
+    }
+    static delCustomer=(data)=>{
+        const allUsers = deal.readFromJson()
+        const index = deal.getIndex(allUsers, data, "accNum")
+        if(index==-1) return console.log("user not found")
+        allUsers.splice(index, 1)
+        deal.writeToJSON(allUsers)
+    }
+    static rollBackTransaction=(argv)=>{
+        const allUsers = deal.readFromJson()
+        const index = deal.getIndex(allUsers, argv.accNum, "accNum")
+        const transIndex = deal.getIndex(allUsers[index].transactions, argv.transNum, "transNum")
+        
+        if (allUsers[index].transactions[transIndex].tType == "withdraw"){
+            allUsers[index].remaining = allUsers[index].remaining + allUsers[index].transactions[transIndex].tValue
+        }
+        else allUsers[index].remaining = allUsers[index].remaining - allUsers[index].transactions[transIndex].tValue
+        
+        allUsers[index].transactions.splice(transIndex, 1)
+        deal.writeToJSON(allUsers)
+        console.log(allUsers[index].transactions[transIndex])
     }
 }
 
