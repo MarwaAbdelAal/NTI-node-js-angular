@@ -1,6 +1,7 @@
 {{>header}}
 {{>navbar}}
-    <form>
+    <form method="post"> 
+        {{!-- action="addPostLogic" --}}
         <div class="mb-3">
             <input placeholder="Name" name="name" class="form-control my-2" value={{data.name}}>
             {{#if errors.name}}
@@ -20,7 +21,7 @@
             {{/if}}
         </div>
         <div class="mb-3">
-            <button class="btn btn-primary">Add</button>
+            <button class="btn btn-primary">Add Post</button>
         </div>
     </form>
 {{>footer}}
