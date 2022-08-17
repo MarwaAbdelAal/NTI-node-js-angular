@@ -20,4 +20,4 @@ nodemon index
 The api should look like this 
 - you can add, edit, delete and show every single user
 
-  ![myUsers App](/express_crud.png)
+  ![myUsers App](express_crud.png)
