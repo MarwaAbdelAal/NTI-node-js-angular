@@ -1,0 +1,22 @@
+{{>navbar}}
+{{>header}}
+    <h3>Add Address {{userId}}</h3>
+        <form method="post"> 
+        <div class="mb-3">
+            <input placeholder="addrType" name="addrType" class="form-control my-2" value={{data.addrType}}>
+            {{#if e.addrType}}
+            <p class="my-2 alert alert-danger my-2">invalid addrType</p>
+            {{/if}}
+        </div>
+        <div class="mb-3">
+            <input placeholder="addrDetails" name="addrDetails" class="form-control my-2" value={{data.addrDetails}}>
+            {{#if e.addrDetails}}
+            <p class="my-2 alert alert-danger my-2">invalid addrDetails</p>
+            {{/if}}
+        </div>
+        <div class="mb-3">
+            <button class="btn btn-primary">Add Address</button>
+        </div>
+    </form>
+
+{{>footer}}

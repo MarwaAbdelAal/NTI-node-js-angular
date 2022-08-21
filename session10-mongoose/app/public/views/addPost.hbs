@@ -1,0 +1,38 @@
+{{>header}}
+{{>navbar}}
+    <form method="post"> 
+        <div class="mb-3">
+            <input placeholder="Name" name="name" class="form-control my-2" value={{data.name}}>
+            {{#if e.name}}
+            <p class="my-2 alert alert-danger my-2">invalid name</p>
+            {{/if}}
+        </div>
+        <div class="mb-3">
+            <input placeholder="Email" name="email" class="form-control my-2" value={{data.email}}>
+            {{#if e.email}}
+            <p class="my-2 alert alert-danger my-2">invalid email</p>
+            {{/if}}
+        </div>
+        <div class="mb-3">
+            <input placeholder="Age" name="age" class="form-control my-2" value={{data.age}}>
+            {{#if e.age}}
+            <p class="my-2 alert alert-danger my-2">invalid age</p>
+            {{/if}}
+        </div>
+        <div class="mb-3">
+            <input placeholder="Password" name="password" class="form-control my-2" value={{data.password}}>
+            {{#if e.password}}
+            <p class="my-2 alert alert-danger my-2">invalid password</p>
+            {{/if}}
+        </div>
+        <div class="mb-3">
+            <select name="gender" class="form-control my-2" value={{data.gender}}>
+                <option value="male">male</option>
+                <option value="female">female</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <button class="btn btn-primary">Add</button>
+        </div>
+    </form>
+{{>footer}}
