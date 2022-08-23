@@ -1,0 +1,5 @@
+Restful (rest) api
+req => inside route(query, param, headers, body, ...)
+res => JSON
+
+name, age, email, password, status
