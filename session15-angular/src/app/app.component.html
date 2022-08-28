@@ -1,0 +1,44 @@
+<!-- <section class="container my-3"> -->
+
+  <!-- <input class="form-control" [(ngModel)]="yearOfBirth">  
+  <ul [ngSwitch]="yearOfBirth%12">
+    <div *ngFor="let b of abrag; let index=index">
+      <li *ngSwitchCase="index">{{b}}</li>
+    </div>
+  </ul> -->
+
+  <!-- <button class="btn btn-warning" (click)="onPress()">Click me</button>
+  <div *ngIf="clicked; else onP">
+    You have clicked
+  </div>
+  <ng-template #onP>
+    <div>You didn't clicked</div>
+  </ng-template> -->
+
+  <!-- <input class="form-control" [(ngModel)]="gender">
+  <ul>
+    <li *ngIf="gender=='male'">Military Service</li>
+    <li *ngIf="gender=='female'">martual status</li>
+  </ul> -->
+
+  <!-- <input class="form-control" [(ngModel)]="searchKey" (input)="search()">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let img of dataCopy; let index=index; let o = odd; let e=even" [ngClass]="{'bg-info': o, 'bg-success': e}">
+        <td>{{index}}</td>
+        <td>{{img.title}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</section> -->
+
+<app-navbar></app-navbar>
+<router-outlet></router-outlet>
+<app-footer></app-footer>
