@@ -1,0 +1,46 @@
+<div class="container my-3">
+    <div class="row">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <!-- <th>albumId</th> -->
+                    <!-- <th>id</th> -->
+                    <!-- <th>title</th> -->
+                    <!-- <th>url</th> -->
+                    <th>details</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="
+                let img of data;
+                 let i = index;
+                 let f = first;
+                 let l = last;
+                 let o = odd;
+                 let e = even
+                 ">
+                    <td>{{i+1}}</td>
+                    <!-- <td>{{img.albumId}}</td> -->
+                    <!-- <td>{{img.id}}</td> -->
+                    <!-- <td>{{img.title}}</td> -->
+                    <!-- <td><img [src]="img.url" width="50" height="50"></td> -->
+                    <td>
+                        <li>first: {{f}}</li>
+                        <li>last: {{l}}</li>
+                        <li>odd: {{o}}</li>
+                        <li>even: {{e}}</li>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- <div class="col-4" *ngFor="let img of data">
+            <div class="m-3 border border-primary rounded">
+                <img class="img-fluid" [src]="img.url">
+                <h4>{{img.title}}</h4>
+            </div>
+        </div> -->
+
+    </div>
+
+</div>

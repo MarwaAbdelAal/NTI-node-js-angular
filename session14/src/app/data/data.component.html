@@ -1,0 +1,37 @@
+<h3>Data Binding</h3>
+<hr>
+<h4>One Way Data Binding</h4>
+<h5>Interpolation</h5>
+<p>
+    {{name}}<br>
+    {{test()}}<br>
+    {{s}}<br>
+    <img src="assets/{{myImg}}">
+</p>
+
+<hr>
+<h5>Property Binding</h5>
+<p [innerHTML] = "s"></p>
+<img [src] = "myImg1">
+<hr>
+
+<h5>Event Binding</h5>
+<button class="btn btn-primary" (click)="test2()">Hello</button>
+<hr>
+
+<h4>Example</h4>
+<div class="alert alert-success" [style.display]="x">
+    Hello from my div
+</div>
+<button [class]="classList" (click)="showHide()">{{btnTxt}}</button>
+<hr>
+
+<input class="form-control" (keydown.enter)="handleInput($event)">
+<p>{{val}}</p>
+
+<input class="form-control" #myInput (input)="handle2(myInput)">
+
+<hr>
+<h4>Two Way Data Binding</h4>
+<input class="form-control" [(ngModel)]="myTwoWay">
+{{myTwoWay}}
