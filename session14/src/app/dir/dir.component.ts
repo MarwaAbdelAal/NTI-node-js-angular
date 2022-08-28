@@ -85,6 +85,4 @@ export class DirComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
-
 }
