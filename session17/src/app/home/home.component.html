@@ -1,0 +1,14 @@
+<div class="row" *ngIf="isLoaded && errMsg == ''">
+    <div class="col-4" *ngFor="let img of imgs" routerLink="/all/{{img.id}}">
+        <div class="border border-3 m-3">
+            <img [src]="img.url" class="img-fluid">
+            <h6>{{img.title}}</h6>
+        </div>
+    </div>
+</div>
+<div class="alert alert-warning" *ngIf="!isLoaded && errMsg == ''"> 
+    Loading Now ...
+</div>
+<div class="alert alert-danger" *ngIf="isLoaded && errMsg != ''">
+    {{errMsg}}
+</div>

@@ -1,0 +1,16 @@
+<div class="row" *ngIf="isLoaded && errMsg == ''">
+    <div class="col-4" routerLink="/user/single/{{id}}">
+        <div class="border border-3 m-3">
+            <h6>{{user?.name}}</h6>
+            <h6>{{user?.email}}</h6>
+            <h6>{{user?.age}}</h6>
+            <h6>{{user?.gender}}</h6>
+        </div>
+    </div>
+</div>
+<div class="alert alert-warning" *ngIf="!isLoaded && errMsg == ''"> 
+    Loading Now ...
+</div>
+<div class="alert alert-danger" *ngIf="isLoaded && errMsg != ''">
+    {{errMsg}}
+</div>

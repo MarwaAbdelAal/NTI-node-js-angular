@@ -1,0 +1,53 @@
+<div class="alert alert-primary">
+    <p>value => {{registerForm.value | json}}</p>
+    <p>valid => {{registerForm.valid}}</p>
+    <p>invalid => {{registerForm.invalid}}</p>
+    <p>touched => {{registerForm.touched}}</p>
+    <p>dirty => {{registerForm.dirty}}</p>
+</div>
+<form [formGroup]="registerForm" (ngSubmit)="handleRegister()">
+    <div class="row">
+        <div class="mb-3">
+            <input class="form-control" placeholder="name" formControlName="name" required>
+            <!-- <p>{{registerForm.controls?.['name']?.['errors']|json}}</p> -->
+            <div *ngIf="name?.['invalid'] && (name?.['dirty'] || name?.['touched'])" class="alert alert-danger">
+                <span *ngIf="name?.['errors']?.['required']">name is required</span>
+                <span *ngIf="name?.['errors']?.['minlength']">min length is 3 chars</span>
+                <span *ngIf="name?.['errors']?.['maxlength']">max length is 20 chars</span>
+            </div>
+        </div>
+        <div class="mb-3">
+            <input class="form-control" placeholder="email" formControlName="email" required>
+            <div *ngIf="email?.['invalid'] && (email?.['dirty'] || email?.['touched'])" class="alert alert-danger">
+                <span *ngIf="email?.['errors']?.['required']">email is required</span>
+                <span *ngIf="email?.['errors']?.['email']">wrong formula of email</span>
+            </div>
+
+        </div>
+        <div class="mb-3">
+            <input class="form-control" placeholder="password" formControlName="password" required>
+            <div *ngIf="password?.['invalid'] && (password?.['dirty'] || password?.['touched'])" class="alert alert-danger">
+                <span *ngIf="password?.['errors']?.['required']">password is required</span>
+            </div>
+
+        </div>
+        <div class="mb-3">
+            <input class="form-control" placeholder="age" formControlName="age">
+            <div *ngIf="age?.['invalid'] && (age?.['dirty'] || age?.['touched'])" class="alert alert-danger">
+                <span *ngIf="age?.['errors']?.['required']">age is required</span>
+                <span *ngIf="age?.['errors']?.['min']">min age is 20</span>
+                <span *ngIf="age?.['errors']?.['max']">max age is 65</span>
+            </div>
+        </div>
+            <div class="mb-3">
+                <input class="form-control" placeholder="gender" formControlName="gender">
+                <div *ngIf="gender?.['invalid'] && (gender?.['dirty'] || gender?.['touched'])" class="alert alert-danger">
+                    <span *ngIf="gender?.['errors']?.['required']">gender is required</span>
+                </div>
+            </div>
+
+        <div class="mb-3">
+            <button class="btn btn-primary">Register</button>
+        </div>
+    </div>
+</form>
